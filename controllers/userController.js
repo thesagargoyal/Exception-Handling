@@ -34,10 +34,10 @@ module.exports.register = async (req, res)=>{
         const checkUsername = await User.findOne({username})
 
         if(checkUser){
-            return res.status(200).json({errors: [{msg:  "Email is already taken"}]})
+            return res.status(400).json({errors: [{msg:  "Email is already taken"}]})
         }
         if(checkUsername){
-            return res.status(200).json({errors: [{msg:  "Username is already taken"}]})
+            return res.status(400).json({errors: [{msg:  "Username is already taken"}]})
         }
         //Password Hash
         const salt = await bcrypt.genSalt(10);
@@ -75,6 +75,8 @@ module.exports.loginValidations = [
 
 // /login API
 module.exports.login = async (req, res)=>{
+
+
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(404).json({errors: errors.array()})
