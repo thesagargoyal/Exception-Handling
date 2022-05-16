@@ -3,6 +3,8 @@ const app = express();
 var bodyParser = require('body-parser');
 const cors = require('cors');
 
+const userRouter = require("./routes/userRoutes");
+
 // importing MongoDB connect function
 const connect = require('./config/db');
 
@@ -26,6 +28,8 @@ app.use(cors(corsOptions));
 
 // bodyParser Middleware
 app.use(bodyParser.json());
+
+app.use('/', userRouter);
 
 
 // Port listening
